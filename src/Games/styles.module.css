@@ -1,0 +1,38 @@
+.gameWrapper {
+  height: calc(100vh - 90px);
+}
+
+.game {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 450px;
+  height: 250px;
+  margin: 20px;
+  border-radius: 5px;
+  font-size: 3em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: white;
+}
+
+.gameMenu {
+  height: calc(100vh - 90px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sprint {
+  background-image: url(./sprint.gif);
+  background-size: cover;
+}
+.audiocall {
+  background-image: url(./audiocall.gif);
+  background-size: cover;
+}
+
+.game:hover {
+  transform: scale(1.1);
+  transition: 1s;
+}
