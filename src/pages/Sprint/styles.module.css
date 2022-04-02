@@ -1,0 +1,38 @@
+.container {
+  text-align: center;
+}
+
+.area {
+  background: #4e54c8;
+  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
+  width: 100%;
+  height: calc(100vh - 75px);
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.score {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+}
+
+.buttonContainer {
+  margin-top: 40px;
+}
+.btn {
+  width: 200px;
+  height: 50px;
+  margin-right: 20px;
+  background: white;
+  font-weight: bold;
+}
+
+.btn:hover {
+  color: white;
+  background: rgb(94, 150, 255);
+}
