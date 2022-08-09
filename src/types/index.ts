@@ -14,3 +14,8 @@ export interface Word {
   textMeaningTranslate: string;
   textExampleTranslate: string;
 }
+
+export interface Results {
+  known: Word[];
+  unknown: Word[];
+}

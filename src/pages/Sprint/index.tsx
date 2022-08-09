@@ -5,28 +5,26 @@ import { getWords } from "../../api/words";
 import { Word } from "../../types";
 import css from "./styles.module.css";
 import { Result } from "../../components/Result";
-// import correctAudio from "../correct.mp3";
-// import wrongAudio from "../wrong.mp3";
 import { GameTimer } from "../../components/GameTimer";
 import { Background } from "../../components/Background";
 import { COMPLETE_WORDS } from "../../constants";
 import { KeyboardHandler } from "./KeyboardHandler";
 import { shuffleArray, getRandomNumber } from "../../utils";
 import { useGame } from "./useGame";
-
-// const correct = new Audio(correctAudio);
-// const wrong = new Audio(wrongAudio);
+import { useResults } from "../../hooks/useResults";
 
 export const Sprint: React.FC = () => {
   const [wordIndex, setWordIndex] = useState(0);
   const [words, setWords] = useState<Word[]>([]);
   const [score, setScore] = useState(0);
   const [gameFinished, setGameFinished] = useState(false);
-  const { results, setResult } = useGame();
+  const { results, setResult, setSound } = useGame();
   const [searchParams] = useSearchParams();
+  const { saveResults } = useResults();
 
   const onEndGame = () => {
     setGameFinished(true);
+    saveResults(results);
   };
 
   const currentWord = useMemo(() => {
@@ -42,15 +40,11 @@ export const Sprint: React.FC = () => {
 
   const checkAnswer = useCallback(
     (answer: boolean) => {
-      wrong.pause();
-      correct.pause();
       const isRight = (words[wordIndex].wordTranslate === currentWord) === answer;
       if (isRight) {
         setScore((score) => score + 20);
-        correct.play();
-      } else {
-        wrong.play();
       }
+      setSound(isRight);
       setResult(words[wordIndex], isRight);
       if (wordIndex + 1 >= COMPLETE_WORDS) {
         onEndGame();
@@ -58,7 +52,7 @@ export const Sprint: React.FC = () => {
         setWordIndex((currentWordIndex) => currentWordIndex + 1);
       }
     },
-    [currentWord, setResult, wordIndex, words]
+    [currentWord, setResult, wordIndex, words, setSound]
   );
 
   const onRightClick = useCallback(() => {
@@ -95,8 +89,10 @@ export const Sprint: React.FC = () => {
               </div>
               <GameTimer onEndGame={onEndGame}></GameTimer>
               <Typography variant='h1'>{words[wordIndex].word}</Typography>
-              <Typography variant='h2'>{currentWord}</Typography>
-              <div className={css.buttonContainer}>
+              <Typography variant='h2' mb={12}>
+                {currentWord}
+              </Typography>
+              <div>
                 <Button className={css.btn} onClick={onRightClick}>
                   Верно
                 </Button>

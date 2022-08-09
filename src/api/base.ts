@@ -1,4 +1,4 @@
-const SERVER_URL = "https://aelx-rmoan-unexpert-rs-lang.herokuapp.com";
+export const SERVER_URL = "https://aelx-rmoan-unexpert-rs-lang.herokuapp.com";
 
 export const baseFetch = async (url: string) => {
   const response = await fetch(SERVER_URL + url, {
